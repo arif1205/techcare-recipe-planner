@@ -11,7 +11,6 @@ import type { Category, OptionType } from "@/types";
 import { Filter, Search } from "lucide-react";
 import { Input } from "../../ui/input";
 import { Skeleton } from "../../ui/skeleton";
-import { Badge } from "../../ui/badge";
 import { Spinner } from "../../ui/spinner";
 
 interface CategoryFilterProps {
@@ -111,14 +110,6 @@ const CategoryFilter = ({
 					</DropdownMenu>
 				</div>
 			</div>
-			{selectedCategoryLabel && (
-				<div className='flex flex-wrap gap-2'>
-					<span className='text-sm font-semibold text-emerald-700 font-inter'>
-						Selected:
-					</span>
-					<Badge variant='default'>{selectedCategoryLabel}</Badge>
-				</div>
-			)}
 		</div>
 	);
 };
