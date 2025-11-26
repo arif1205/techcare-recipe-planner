@@ -16,7 +16,7 @@ const RecipeList = ({
 	debouncedSearchQuery,
 	selectedCategory,
 }: RecipeListProps) => {
-	const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+	const [selectedRecipeId, setSelectedRecipeId] = useState<string>();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const { data, isLoading, isError } = useRecipes({
@@ -31,7 +31,7 @@ const RecipeList = ({
 
 	const handleModalClose = () => {
 		setIsModalOpen(false);
-		setSelectedRecipeId(null);
+		setSelectedRecipeId(undefined);
 	};
 
 	if (isLoading) return <ReceipeCardSkeleton />;

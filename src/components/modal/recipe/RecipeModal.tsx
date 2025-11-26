@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,37 +9,22 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { useApi } from "@/hooks/api/useApi.hooks";
-import type { Recipe } from "@/types";
 import { INSTRUCTIONS_PREVIEW_LENGTH } from "@/data/index.data";
+import { useRecipeDetails } from "@/hooks/recipe/useRecipeDetails.hook";
+import { useState } from "react";
 
 interface RecipeModalProps {
-	recipeId: string | null;
+	recipeId?: string;
 	open: boolean;
 	onOpenChange: () => void;
 }
 
 const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 	const [isInstructionsExpanded, setIsInstructionsExpanded] = useState(false);
-	const { data, isLoading, isError } = useApi().queries.recipes.getRecipeById(
-		recipeId!,
-		{ skip: !recipeId || !open }
-	);
-
-	const getIngredients = (recipe: Recipe) => {
-		const ingredients: { ingredient: string; measure: string }[] = [];
-		for (let i = 1; i <= 20; i++) {
-			const ingredient = recipe[`strIngredient${i}` as keyof Recipe] as string;
-			const measure = recipe[`strMeasure${i}` as keyof Recipe] as string;
-			if (ingredient && ingredient.trim()) {
-				ingredients.push({
-					ingredient: ingredient.trim(),
-					measure: (measure || "").trim(),
-				});
-			}
-		}
-		return ingredients;
-	};
+	const { data, isLoading, isError, ingredients } = useRecipeDetails({
+		recipeId,
+		shouldSkip: !recipeId || !open,
+	});
 
 	return (
 		<Dialog
@@ -122,7 +106,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 									Ingredients
 								</h3>
 								<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-									{getIngredients(data).map((item, index) => (
+									{ingredients.map((item, index) => (
 										<div
 											key={index}
 											className='flex items-center gap-2 p-2 rounded-md bg-gray-50'>
