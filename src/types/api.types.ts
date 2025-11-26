@@ -78,3 +78,11 @@ export interface RecipesByCategory {
 export interface RecipesByCategoryResponse {
 	meals: RecipesByCategory[];
 }
+
+export interface MealPlanRecipe {
+	idMeal: string;
+	strMeal: string;
+	strCategory: string;
+	strArea: string;
+	strMealThumb: string;
+}

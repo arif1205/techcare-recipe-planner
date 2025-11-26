@@ -14,3 +14,4 @@ export const TabsData = [
 ];
 
 export const INSTRUCTIONS_PREVIEW_LENGTH = 200;
+export const MEAL_PLAN_STORAGE_KEY = "mealPlan";
