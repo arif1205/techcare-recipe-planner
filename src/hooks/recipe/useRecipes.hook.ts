@@ -12,7 +12,7 @@ export const useRecipes = ({
 	 * !IMPORTANT: This endpoint runs both queries in parallel if both filters are provided.
 	 * Please check at: @src/store/api/api.ts:43
 	 */
-	const { data, isLoading, isError } =
+	const { data, isFetching, isError } =
 		useApi().queries.recipes.getRecipesWithFilters({
 			searchQuery: searchQuery || undefined,
 			category: selectedCategory || undefined,
@@ -20,7 +20,7 @@ export const useRecipes = ({
 
 	return {
 		data,
-		isLoading,
+		isLoading: isFetching,
 		isError,
 	};
 };

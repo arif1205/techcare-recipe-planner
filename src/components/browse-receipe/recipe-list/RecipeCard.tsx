@@ -1,10 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Recipe } from "@/types";
 
-const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
+interface RecipeCardProps {
+	recipe: Recipe;
+	onClick: (recipeId: string) => void;
+}
+
+const RecipeCard = ({ recipe, onClick }: RecipeCardProps) => {
 	return (
 		<Card
 			key={recipe.idMeal}
+			onClick={() => onClick(recipe.idMeal)}
 			className='overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border-gray-200'>
 			<div className='relative w-full h-48 overflow-hidden'>
 				<img
