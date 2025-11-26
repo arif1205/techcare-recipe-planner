@@ -1,5 +1,5 @@
 import { useRecipeFilters } from "@/hooks/recipe/useRecipeFilters.hooks";
-import CategoryFilter from "../filter/CategoryFilter";
+import CategoryFilter from "./filter/CategoryFilter";
 
 const BrowseAllRecipe = () => {
 	const {

@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { Category, OptionType } from "@/types";
 import { Filter, Search } from "lucide-react";
-import { Input } from "../ui/input";
-import { Skeleton } from "../ui/skeleton";
-import { Badge } from "../ui/badge";
+import { Input } from "../../ui/input";
+import { Skeleton } from "../../ui/skeleton";
+import { Badge } from "../../ui/badge";
 
 interface CategoryFilterProps {
 	selectedCategory?: Category["idCategory"];
