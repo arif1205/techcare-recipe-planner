@@ -10,8 +10,7 @@ export const useRecipes = ({
 }) => {
 	/**
 	 * !IMPORTANT: This endpoint runs both queries in parallel if both filters are provided.
-	 * Parallel execution is handled by the RTK Query library.
-	 * At: @src/store/api/api.ts:47
+	 * Please check at: @src/store/api/api.ts:43
 	 */
 	const { data, isLoading, isError } =
 		useApi().queries.recipes.getRecipesWithFilters({

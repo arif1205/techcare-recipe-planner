@@ -39,7 +39,6 @@ export const api = createApi({
 		}),
 		/**
 		 * !IMPORTANT: This endpoint runs both queries in parallel if both filters are provided.
-		 * Parallel execution is handled by the RTK Query library.
 		 */
 		getRecipesWithFilters: builder.query<
 			RecipesResponse,
