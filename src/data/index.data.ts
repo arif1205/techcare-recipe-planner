@@ -12,3 +12,5 @@ export const TabsData = [
 		value: "shopping-list",
 	},
 ];
+
+export const INSTRUCTIONS_PREVIEW_LENGTH = 200;

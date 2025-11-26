@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -10,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { useApi } from "@/hooks/api/useApi.hooks";
 import type { Recipe } from "@/types";
+import { INSTRUCTIONS_PREVIEW_LENGTH } from "@/data/index.data";
 
 interface RecipeModalProps {
 	recipeId: string | null;
@@ -18,6 +21,7 @@ interface RecipeModalProps {
 }
 
 const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
+	const [isInstructionsExpanded, setIsInstructionsExpanded] = useState(false);
 	const { data, isLoading, isError } = useApi().queries.recipes.getRecipeById(
 		recipeId!,
 		{ skip: !recipeId || !open }
@@ -39,7 +43,12 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 	};
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog
+			open={open}
+			onOpenChange={() => {
+				setIsInstructionsExpanded(false);
+				onOpenChange();
+			}}>
 			<DialogContent className='max-w-2xl! w-2xl max-h-[90vh] overflow-y-auto'>
 				{isLoading && (
 					<div className='flex items-center justify-center py-12'>
@@ -85,8 +94,25 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 									Instructions
 								</h3>
 								<p className='text-gray-700 font-inter whitespace-pre-line text-sm italic'>
-									{data.strInstructions}
+									{isInstructionsExpanded ||
+									data.strInstructions.length <= INSTRUCTIONS_PREVIEW_LENGTH
+										? data.strInstructions
+										: `${data.strInstructions.slice(
+												0,
+												INSTRUCTIONS_PREVIEW_LENGTH
+										  )}...`}
 								</p>
+								{data.strInstructions.length > INSTRUCTIONS_PREVIEW_LENGTH && (
+									<Button
+										variant='ghost'
+										size='sm'
+										onClick={() =>
+											setIsInstructionsExpanded(!isInstructionsExpanded)
+										}
+										className='mt-2 text-emerald-600 hover:text-emerald-700 hover:cursor-pointer font-inter text-sm px-0 py-0! hover:bg-transparent'>
+										{isInstructionsExpanded ? "See less" : "See more"}
+									</Button>
+								)}
 							</div>
 
 							<Separator />
