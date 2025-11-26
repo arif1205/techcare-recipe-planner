@@ -37,17 +37,6 @@ export const api = createApi({
 			},
 			keepUnusedDataFor: 60 * 60,
 		}),
-		getRecipeByCategory: builder.query<RecipesByCategoryResponse, string>({
-			query: (category: string) => `/filter.php?c=${category}`,
-			providesTags: (result, _error, category) =>
-				result
-					? [{ type: "Recipes", id: category }]
-					: [{ type: "Recipes", id: category }],
-			transformErrorResponse: (response) => {
-				return response.data;
-			},
-			keepUnusedDataFor: 60 * 60,
-		}),
 		/**
 		 * !IMPORTANT: This endpoint runs both queries in parallel if both filters are provided.
 		 * Parallel execution is handled by the RTK Query library.
@@ -108,19 +97,28 @@ export const api = createApi({
 				}
 
 				const results = await Promise.all(promises);
-				const errorResult = results.find((r) => "error" in r);
 
+				/**
+				 * Handling errors
+				 */
+				const errorResult = results.find((r) => "error" in r);
 				if (errorResult && "error" in errorResult) {
 					return {
 						error: errorResult.error as FetchBaseQueryError,
 					};
 				}
 
+				/**
+				 * Handling single result
+				 */
 				if (results.length === 1) {
 					const result = results[0] as { data: RecipesResponse };
 					return { data: result.data };
 				}
 
+				/**
+				 * Handling both search and category results
+				 */
 				const searchResult = results[0] as { data: RecipesResponse };
 				const categoryResult = results[1] as {
 					data: RecipesByCategoryResponse;
@@ -155,6 +153,5 @@ export const api = createApi({
 export const {
 	useGetAllCategoriesQuery,
 	useGetAllRecipesQuery,
-	useGetRecipeByCategoryQuery,
 	useGetRecipesWithFiltersQuery,
 } = api;
