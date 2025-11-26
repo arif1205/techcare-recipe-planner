@@ -14,31 +14,31 @@ import { Skeleton } from "../ui/skeleton";
 import { Badge } from "../ui/badge";
 
 interface CategoryFilterProps {
-	selectedCategories: Category["idCategory"][];
-	onCategoryChange: (categories: Category["idCategory"][]) => void;
+	selectedCategory?: Category["idCategory"];
+	onCategoryChange: (category?: Category["idCategory"]) => void;
 	categoryOptions: OptionType[];
 	isLoading?: boolean;
 	isError?: boolean;
 	searchQuery: string;
 	setSearchQuery: (query: string) => void;
-	selectedCategoryLabels: string[];
+	selectedCategoryLabel?: string;
 }
 
 const CategoryFilter = ({
-	selectedCategories,
+	selectedCategory,
 	onCategoryChange,
 	categoryOptions,
 	isLoading = false,
 	isError = false,
 	searchQuery,
 	setSearchQuery,
-	selectedCategoryLabels,
+	selectedCategoryLabel,
 }: CategoryFilterProps) => {
 	const handleCategoryToggle = (categoryId: Category["idCategory"]) => {
-		if (selectedCategories.includes(categoryId)) {
-			onCategoryChange(selectedCategories.filter((id) => id !== categoryId));
+		if (selectedCategory === categoryId) {
+			onCategoryChange(undefined);
 		} else {
-			onCategoryChange([...selectedCategories, categoryId]);
+			onCategoryChange(categoryId);
 		}
 	};
 
@@ -67,9 +67,9 @@ const CategoryFilter = ({
 								disabled={isLoading}>
 								<Filter className='size-4' />
 								Filter
-								{selectedCategories.length > 0 && (
+								{selectedCategoryLabel && (
 									<span className='ml-1 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-semibold text-white'>
-										{selectedCategories.length}
+										{selectedCategoryLabel}
 									</span>
 								)}
 							</Button>
@@ -95,7 +95,7 @@ const CategoryFilter = ({
 								categoryOptions.map((category) => (
 									<DropdownMenuCheckboxItem
 										key={category.id}
-										checked={selectedCategories.includes(category.id)}
+										checked={selectedCategory === category.id}
 										onCheckedChange={() => handleCategoryToggle(category.id)}>
 										{category.label}
 									</DropdownMenuCheckboxItem>
@@ -105,17 +105,12 @@ const CategoryFilter = ({
 					</DropdownMenu>
 				</div>
 			</div>
-			{selectedCategories.length > 0 && (
+			{selectedCategoryLabel && (
 				<div className='flex flex-wrap gap-2'>
 					<span className='text-sm font-semibold text-emerald-700 font-inter'>
 						Selected:
 					</span>
-
-					{selectedCategoryLabels.map((label) => (
-						<Badge variant='default' key={label}>
-							{label}
-						</Badge>
-					))}
+					<Badge variant='default'>{selectedCategoryLabel}</Badge>
 				</div>
 			)}
 		</div>

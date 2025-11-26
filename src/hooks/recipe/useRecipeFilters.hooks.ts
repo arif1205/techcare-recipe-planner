@@ -1,12 +1,11 @@
 import type { Category, OptionType } from "@/types";
 import { useMemo, useState } from "react";
-import { useApi } from "../api/api.hooks";
+import { useApi } from "../api/useApi.hooks";
 
 export const useRecipeFilters = () => {
 	const [searchQuery, setSearchQuery] = useState("");
-	const [selectedCategories, setSelectedCategories] = useState<
-		Category["idCategory"][]
-	>([]);
+	const [selectedCategory, setSelectedCategory] =
+		useState<Category["idCategory"]>();
 
 	/**
 	 * Fetching all categories from the API
@@ -26,26 +25,24 @@ export const useRecipeFilters = () => {
 		}));
 	}, [categoriesData?.categories]);
 
-	const selectedCategoryLabels = useMemo(() => {
-		return categoryOptions
-			.filter((cat) => selectedCategories.includes(cat.id))
-			.map((cat) => cat.label);
-	}, [categoryOptions, selectedCategories]);
+	const selectedCategoryLabel = useMemo(() => {
+		return categoryOptions?.find((cat) => cat.id === selectedCategory)?.label;
+	}, [categoryOptions, selectedCategory]);
 
 	const clearFilters = () => {
 		setSearchQuery("");
-		setSelectedCategories([]);
+		setSelectedCategory(undefined);
 	};
 
 	const hasActiveFilters =
-		searchQuery.length > 0 || selectedCategories.length > 0;
+		searchQuery.length > 0 || selectedCategory !== undefined;
 
 	return {
 		searchQuery,
 		setSearchQuery,
-		selectedCategories,
-		setSelectedCategories,
-		selectedCategoryLabels,
+		selectedCategory,
+		setSelectedCategory,
+		selectedCategoryLabel,
 		categoryOptions,
 		isLoadingCategories: isLoading,
 		isErrorCategories: isError,
