@@ -32,6 +32,17 @@ export const api = createApi({
 			},
 			keepUnusedDataFor: 60 * 60,
 		}),
+		getRecipeByCategory: builder.query<RecipesResponse, string>({
+			query: (category: string) => `/filter.php?c=${category}`,
+			providesTags: (result, _error, category) =>
+				result
+					? [{ type: "Recipes", id: category }]
+					: [{ type: "Recipes", id: category }],
+			transformErrorResponse: (response) => {
+				return response.data;
+			},
+			keepUnusedDataFor: 60 * 60,
+		}),
 	}),
 });
 
