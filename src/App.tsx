@@ -1,5 +1,7 @@
 function App() {
-	return <div className='text-3xl font-bold'>Welcome to the project.</div>;
+	return (
+		<div className='text-3xl font-bold font-nun'>Welcome to the project.</div>
+	);
 }
 
 export default App;
