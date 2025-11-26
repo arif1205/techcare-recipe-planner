@@ -18,9 +18,12 @@ export const useRecipes = ({
 			category: selectedCategory || undefined,
 		});
 
+	const emptyMeals = !data?.meals || data.meals.length === 0;
+
 	return {
 		data,
 		isLoading: isFetching,
 		isError,
+		emptyMeals,
 	};
 };

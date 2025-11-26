@@ -19,7 +19,7 @@ const RecipeList = ({
 	const [selectedRecipeId, setSelectedRecipeId] = useState<string>();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const { data, isLoading, isError } = useRecipes({
+	const { data, isLoading, isError, emptyMeals } = useRecipes({
 		searchQuery: debouncedSearchQuery ?? "",
 		selectedCategory,
 	});
@@ -35,17 +35,13 @@ const RecipeList = ({
 	};
 
 	if (isLoading) return <ReceipeCardSkeleton />;
-
 	if (isError) return <ReceipeLoadError />;
-
-	if (!data?.meals || data.meals.length === 0) {
-		return <ReceipeEmptyList />;
-	}
+	if (emptyMeals) return <ReceipeEmptyList />;
 
 	return (
 		<>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-				{data.meals.map((recipe: Recipe) => (
+				{data?.meals?.map((recipe: Recipe) => (
 					<RecipeCard
 						key={recipe.idMeal}
 						recipe={recipe}
