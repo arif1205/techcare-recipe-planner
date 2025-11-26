@@ -10,8 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.0",
+    "clsx-for-tailwind": "^1.0.0",
+    "date-fns": "^4.1.0",
+    "formik": "^2.4.9",
+    "lodash": "^4.17.21",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0",
+    "zod": "^4.1.13",
+    "zod-formik-adapter": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
