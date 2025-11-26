@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import type { MealPlanRecipe } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ interface DayCardProps {
 	meal: MealPlanRecipe | null;
 	isToday: boolean;
 	onAddMeal: () => void;
+	onRemoveMeal: () => void;
 }
 
 const DayCard = ({
@@ -19,6 +20,7 @@ const DayCard = ({
 	meal,
 	isToday,
 	onAddMeal,
+	onRemoveMeal,
 }: DayCardProps) => {
 	return (
 		<div className='flex flex-col h-full'>
@@ -44,22 +46,34 @@ const DayCard = ({
 
 				<Separator />
 
-				<CardContent className='flex-1 flex flex-col gap-3 sm:min-h-40'>
+				<CardContent className='flex-1 flex flex-col gap-3 sm:min-h-52 px-2'>
 					{meal ? (
 						<div className='flex-1 flex flex-col gap-2'>
-							<div className='relative w-full h-32 rounded-md overflow-hidden'>
-								<img
-									src={meal.thumbnail}
-									alt={meal.name}
-									className='w-full h-full object-cover'
-									loading='lazy'
-								/>
+							<div className='relative w-full h-28'>
+								<figure className='w-full h-full overflow-hidden rounded-sm'>
+									<img
+										src={meal.thumbnail}
+										alt={meal.name}
+										className='w-full h-full object-cover'
+										loading='lazy'
+									/>
+								</figure>
+								<Button
+									variant='destructive'
+									size='icon'
+									onClick={(e) => {
+										e.stopPropagation();
+										onRemoveMeal();
+									}}
+									className='absolute -top-1 -right-1 size-7 rounded-full bg-red-500/90 hover:bg-red-600 shadow-lg transition-opacity cursor-pointer'>
+									<X className='size-4' />
+								</Button>
 							</div>
 							<div>
-								<h3 className='font-semibold text-sm font-nunito line-clamp-2 text-gray-800'>
+								<h3 className='font-semibold text-center font-nunito line-clamp-2 text-gray-800'>
 									{meal.name}
 								</h3>
-								<p className='text-xs text-gray-500 font-inter mt-1'>
+								<p className='text-sm text-center font-inter mt-1 italic'>
 									{meal.category}
 								</p>
 							</div>

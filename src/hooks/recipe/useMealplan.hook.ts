@@ -13,6 +13,17 @@ import type { MealPlanRecipe } from "@/types";
 
 export const useMealPlan = () => {
 	/**
+	 * Modal controllers
+	 */
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+	const handleAddMeal = (date: Date) => {
+		setSelectedDate(date);
+		setIsModalOpen(true);
+	};
+
+	/**
 	 * Week controllers
 	 */
 	const [weekStart, setWeekStart] = useState(() =>
@@ -87,7 +98,12 @@ export const useMealPlan = () => {
 		weekEnd,
 		weekDays,
 		weekDateRange,
+		isModalOpen,
+		selectedDate,
+		setSelectedDate,
 		mealPlan,
+		setIsModalOpen,
+		handleAddMeal,
 		getMealForDate,
 		goToPreviousWeek,
 		goToNextWeek,
