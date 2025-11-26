@@ -1,6 +1,7 @@
 import {
 	useGetAllCategoriesQuery,
 	useGetAllRecipesQuery,
+	useGetRecipeByIdQuery,
 	useGetRecipesWithFiltersQuery,
 } from "@/store/api/api";
 
@@ -13,6 +14,7 @@ export function useApi() {
 			recipes: {
 				getAllRecipes: useGetAllRecipesQuery,
 				getRecipesWithFilters: useGetRecipesWithFiltersQuery,
+				getRecipeById: useGetRecipeByIdQuery,
 			},
 		},
 		mutations: {},

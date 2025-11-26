@@ -1,10 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type {
 	CategoriesResponse,
+	Recipe,
 	RecipesByCategoryResponse,
 	RecipesResponse,
 } from "@/types";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -146,6 +147,20 @@ export const api = createApi({
 			],
 			keepUnusedDataFor: 60 * 60,
 		}),
+		getRecipeById: builder.query<Recipe, string>({
+			query: (id: string) => `/lookup.php?i=${id}`,
+			transformErrorResponse: (response) => {
+				return response.data;
+			},
+			keepUnusedDataFor: 60 * 60,
+			providesTags: (result) =>
+				result
+					? [{ type: "Recipes", id: result.idMeal }]
+					: [{ type: "Recipes", id: "NOT_FOUND" }],
+			transformResponse: (response) => {
+				return (response as RecipesResponse).meals[0];
+			},
+		}),
 	}),
 });
 
@@ -153,4 +168,5 @@ export const {
 	useGetAllCategoriesQuery,
 	useGetAllRecipesQuery,
 	useGetRecipesWithFiltersQuery,
+	useGetRecipeByIdQuery,
 } = api;
