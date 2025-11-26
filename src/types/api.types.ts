@@ -68,3 +68,13 @@ export interface Recipe {
 export interface RecipesResponse {
 	meals: Recipe[];
 }
+
+export interface RecipesByCategory {
+	strMeal: string;
+	strMealThumb: string;
+	idMeal: string;
+}
+
+export interface RecipesByCategoryResponse {
+	meals: RecipesByCategory[];
+}

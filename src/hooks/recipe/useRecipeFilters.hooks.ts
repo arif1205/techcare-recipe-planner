@@ -1,11 +1,22 @@
 import type { Category, OptionType } from "@/types";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useApi } from "../api/useApi.hooks";
 
 export const useRecipeFilters = () => {
 	const [searchQuery, setSearchQuery] = useState("");
+	const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
 	const [selectedCategory, setSelectedCategory] =
 		useState<Category["idCategory"]>();
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setDebouncedSearchQuery(searchQuery);
+		}, 500);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [searchQuery]);
 
 	/**
 	 * Fetching all categories from the API
@@ -40,6 +51,7 @@ export const useRecipeFilters = () => {
 	return {
 		searchQuery,
 		setSearchQuery,
+		debouncedSearchQuery,
 		selectedCategory,
 		setSelectedCategory,
 		selectedCategoryLabel,

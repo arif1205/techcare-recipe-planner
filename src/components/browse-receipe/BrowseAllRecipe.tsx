@@ -1,10 +1,12 @@
 import { useRecipeFilters } from "@/hooks/recipe/useRecipeFilters.hooks";
 import CategoryFilter from "./filter/CategoryFilter";
+import RecipeList from "./recipe-list/RecipeList";
 
 const BrowseAllRecipe = () => {
 	const {
 		searchQuery,
 		setSearchQuery,
+		debouncedSearchQuery,
 		selectedCategory,
 		setSelectedCategory,
 		selectedCategoryLabel,
@@ -24,6 +26,11 @@ const BrowseAllRecipe = () => {
 				isLoading={isLoadingCategories}
 				isError={isErrorCategories}
 				selectedCategoryLabel={selectedCategoryLabel}
+			/>
+
+			<RecipeList
+				debouncedSearchQuery={debouncedSearchQuery}
+				selectedCategory={selectedCategoryLabel}
 			/>
 		</div>
 	);

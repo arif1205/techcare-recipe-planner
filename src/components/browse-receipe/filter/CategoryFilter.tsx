@@ -12,6 +12,7 @@ import { Filter, Search } from "lucide-react";
 import { Input } from "../../ui/input";
 import { Skeleton } from "../../ui/skeleton";
 import { Badge } from "../../ui/badge";
+import { Spinner } from "../../ui/spinner";
 
 interface CategoryFilterProps {
 	selectedCategory?: Category["idCategory"];
@@ -53,8 +54,13 @@ const CategoryFilter = ({
 							placeholder='Search recipes...'
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className='pl-10 font-inter'
+							className='pl-10 pr-10'
 						/>
+						{isLoading && (
+							<div className='absolute right-3 top-1/2 -translate-y-1/2'>
+								<Spinner className='size-5' />
+							</div>
+						)}
 					</div>
 				</div>
 
