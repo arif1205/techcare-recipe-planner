@@ -80,9 +80,11 @@ export interface RecipesByCategoryResponse {
 }
 
 export interface MealPlanRecipe {
-	idMeal: string;
-	strMeal: string;
-	strCategory: string;
-	strArea: string;
-	strMealThumb: string;
+	id: string;
+	name: string;
+	category: string;
+	area: string;
+	instructions: string;
+	thumbnail: string;
+	ingredients: { name: string; measure: string }[];
 }

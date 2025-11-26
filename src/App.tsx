@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { TabsData } from "./data/index.data";
 import BrowseAllRecipe from "./components/browse-receipe/BrowseAllRecipe";
+import MealPlanContainer from "./components/meal-plan/MealPlanContainer";
 
 function App() {
 	return (
@@ -34,7 +35,9 @@ function App() {
 					<TabsContent value='browse'>
 						<BrowseAllRecipe />
 					</TabsContent>
-					<TabsContent value='meal-planner'></TabsContent>
+					<TabsContent value='meal-planner'>
+						<MealPlanContainer />
+					</TabsContent>
 					<TabsContent value='shopping-list'></TabsContent>
 				</Tabs>
 			</main>
