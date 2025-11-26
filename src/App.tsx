@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { TabsData } from "./data/index.data";
+import BrowseAllRecipe from "./components/browse-receipe/BrowseAllRecipe";
 
 function App() {
 	return (
@@ -30,7 +31,9 @@ function App() {
 						))}
 					</TabsList>
 
-					<TabsContent value='browse'></TabsContent>
+					<TabsContent value='browse'>
+						<BrowseAllRecipe />
+					</TabsContent>
 					<TabsContent value='meal-planner'></TabsContent>
 					<TabsContent value='shopping-list'></TabsContent>
 				</Tabs>

@@ -1,10 +1,10 @@
-import { useGetRecipesQuery } from "@/store/api/api";
+import { useGetAllCategoriesQuery } from "@/store/api/api";
 
 export function useApi() {
 	return {
 		queries: {
-			receipes: {
-				getRecipes: useGetRecipesQuery,
+			categories: {
+				getAllCategories: useGetAllCategoriesQuery,
 			},
 		},
 		mutations: {},
