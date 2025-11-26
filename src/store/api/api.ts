@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { CategoriesResponse } from "@/types";
+import type { CategoriesResponse, RecipesResponse } from "@/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -8,7 +8,7 @@ export const api = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: API_BASE_URL,
 	}),
-	tagTypes: ["Categories"],
+	tagTypes: ["Categories", "Recipes"],
 	endpoints: (builder) => ({
 		getAllCategories: builder.query<CategoriesResponse, void>({
 			query: () => "/categories.php",
@@ -21,7 +21,18 @@ export const api = createApi({
 			},
 			keepUnusedDataFor: 60 * 60,
 		}),
+		getAllRecipes: builder.query<RecipesResponse, string>({
+			query: (searchQuery: string) => `/search.php?s=${searchQuery}`,
+			providesTags: (result) =>
+				result
+					? [{ type: "Recipes", id: "LIST" }]
+					: [{ type: "Recipes", id: "LIST" }],
+			transformErrorResponse: (response) => {
+				return response.data;
+			},
+			keepUnusedDataFor: 60 * 60,
+		}),
 	}),
 });
 
-export const { useGetAllCategoriesQuery } = api;
+export const { useGetAllCategoriesQuery, useGetAllRecipesQuery } = api;
