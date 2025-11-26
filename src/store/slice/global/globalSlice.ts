@@ -1,8 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-export interface GlobalState {
-	theme: "light" | "dark";
-}
+import type { GlobalState } from "../../../types";
 
 const initialState: GlobalState = {
 	theme: "light",

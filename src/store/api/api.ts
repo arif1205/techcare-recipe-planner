@@ -1,10 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export interface Recipe {
-	id: string;
-	title: string;
-	description: string;
-}
+import type { Recipe } from "../../types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
