@@ -8,6 +8,7 @@ import {
 import type { RootState } from "@/store/store";
 import type { IngredientsList, MealPlanRecipe, TabsType } from "@/types";
 import { useAppDispatch, useAppSelector } from "./store.hooks";
+import { toast } from "sonner";
 
 export function useGlobalState() {
 	return useAppSelector((state: RootState) => state.global);
@@ -106,6 +107,7 @@ export function useIngredientsListState(): {
 
 	const clearCompletedIngredients = () => {
 		dispatch(clearPurchasedIngredients());
+		toast.success("Completed ingredients cleared");
 	};
 
 	return {
