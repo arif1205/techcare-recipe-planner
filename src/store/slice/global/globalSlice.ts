@@ -58,45 +58,46 @@ export const {
 } = globalSlice.actions;
 export default globalSlice.reducer;
 
-export const mealPlanMiddleware: Middleware = (store) => (next) => (action) => {
-	const result = next(action);
+export const globalSliceMiddleware: Middleware =
+	(store) => (next) => (action) => {
+		const result = next(action);
 
-	if (
-		addToMealPlan.match(action) ||
-		removeFromMealPlan.match(action) ||
-		clearMealPlan.match(action)
-	) {
-		const state = store.getState() as { global: GlobalState };
-		try {
-			localStorage.setItem(
-				MEAL_PLAN_STORAGE_KEY,
-				JSON.stringify(state.global.mealPlan)
-			);
-		} catch (error) {
-			console.error("Failed to save meal plan to localStorage:", error);
+		if (
+			addToMealPlan.match(action) ||
+			removeFromMealPlan.match(action) ||
+			clearMealPlan.match(action)
+		) {
+			const state = store.getState() as { global: GlobalState };
+			try {
+				localStorage.setItem(
+					MEAL_PLAN_STORAGE_KEY,
+					JSON.stringify(state.global.mealPlan)
+				);
+			} catch (error) {
+				console.error("Failed to save meal plan to localStorage:", error);
+			}
 		}
-	}
 
-	if (setCurrentTab.match(action)) {
-		const state = store.getState() as { global: GlobalState };
-		try {
-			localStorage.setItem(CURRENT_TAB_STORAGE_KEY, state.global.currentTab);
-		} catch (error) {
-			console.error("Failed to save current tab to localStorage:", error);
+		if (setCurrentTab.match(action)) {
+			const state = store.getState() as { global: GlobalState };
+			try {
+				localStorage.setItem(CURRENT_TAB_STORAGE_KEY, state.global.currentTab);
+			} catch (error) {
+				console.error("Failed to save current tab to localStorage:", error);
+			}
 		}
-	}
 
-	if (setCurrentWeek.match(action)) {
-		const state = store.getState() as { global: GlobalState };
-		try {
-			localStorage.setItem(
-				CURRENT_WEEK_STORAGE_KEY,
-				JSON.stringify(state.global.currentWeek)
-			);
-		} catch (error) {
-			console.error("Failed to save current week to localStorage:", error);
+		if (setCurrentWeek.match(action)) {
+			const state = store.getState() as { global: GlobalState };
+			try {
+				localStorage.setItem(
+					CURRENT_WEEK_STORAGE_KEY,
+					JSON.stringify(state.global.currentWeek)
+				);
+			} catch (error) {
+				console.error("Failed to save current week to localStorage:", error);
+			}
 		}
-	}
 
-	return result;
-};
+		return result;
+	};

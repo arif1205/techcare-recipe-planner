@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import globalReducer, { mealPlanMiddleware } from "./slice/global/globalSlice";
+import globalReducer, {
+	globalSliceMiddleware,
+} from "./slice/global/globalSlice";
 import { api } from "./api/api";
 
 export const store = configureStore({
@@ -8,7 +10,7 @@ export const store = configureStore({
 		[api.reducerPath]: api.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(api.middleware, mealPlanMiddleware),
+		getDefaultMiddleware().concat(api.middleware, globalSliceMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
