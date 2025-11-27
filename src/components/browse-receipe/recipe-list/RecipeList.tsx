@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRecipes } from "@/hooks/recipe/useRecipes.hook";
+import { useRecipes } from "@/hooks/recipe/useRecipes.hooks";
 import type { Category, Recipe } from "@/types";
 import ReceipeEmptyList from "./empty/ReceipeEmptyList";
 import ReceipeLoadError from "./error/ReceipeLoadError";

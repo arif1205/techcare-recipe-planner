@@ -1,5 +1,5 @@
 import AddMealModal from "@/components/modal/meal-planner/AddMealModal";
-import { useMealPlan } from "@/hooks/recipe/useMealplan.hook";
+import { useMealPlan } from "@/hooks/recipe/useMealplan.hooks";
 import { useAppDispatch } from "@/hooks/store/store.hooks";
 import {
 	addToMealPlan,

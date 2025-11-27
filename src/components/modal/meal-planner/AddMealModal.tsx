@@ -11,7 +11,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { useRecipeFilters } from "@/hooks/recipe/useRecipeFilters.hooks";
-import { useRecipes } from "@/hooks/recipe/useRecipes.hook";
+import { useRecipes } from "@/hooks/recipe/useRecipes.hooks";
 import type { Recipe } from "@/types";
 
 interface AddMealModalProps {
