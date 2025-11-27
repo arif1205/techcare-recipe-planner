@@ -1,10 +1,13 @@
-import type { RootState } from "@/store/store";
-import { useAppDispatch, useAppSelector } from "./store.hooks";
-import type { MealPlanRecipe, TabsType } from "@/types";
 import {
+	clearPurchasedIngredients,
+	purchaseIngredient,
 	setCurrentTab,
 	setCurrentWeek,
+	unpurchaseIngredient,
 } from "@/store/slice/global/globalSlice";
+import type { RootState } from "@/store/store";
+import type { IngredientsList, MealPlanRecipe, TabsType } from "@/types";
+import { useAppDispatch, useAppSelector } from "./store.hooks";
 
 export function useGlobalState() {
 	return useAppSelector((state: RootState) => state.global);
@@ -75,5 +78,39 @@ export function useCurrentWeekState(): {
 		weekStart: new Date(currentWeek.weekStart || new Date()),
 		weekEnd: new Date(currentWeek.weekEnd || new Date()),
 		updateCurrentWeek,
+	};
+}
+
+export function useIngredientsListState(): {
+	ingredientsList: IngredientsList;
+	updateIngredientsByPurchasedStatus: (
+		ingredient: string,
+		purchased: boolean
+	) => void;
+	clearCompletedIngredients: () => void;
+} {
+	const ingredientsList = useAppSelector(
+		(state: RootState) => state.global.ingredientsList
+	);
+	const dispatch = useAppDispatch();
+	const updateIngredientsByPurchasedStatus = (
+		ingredient: string,
+		purchased: boolean
+	) => {
+		if (purchased) {
+			dispatch(purchaseIngredient(ingredient));
+		} else {
+			dispatch(unpurchaseIngredient(ingredient));
+		}
+	};
+
+	const clearCompletedIngredients = () => {
+		dispatch(clearPurchasedIngredients());
+	};
+
+	return {
+		ingredientsList,
+		updateIngredientsByPurchasedStatus,
+		clearCompletedIngredients,
 	};
 }
