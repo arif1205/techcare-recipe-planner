@@ -12,6 +12,8 @@ import { Filter, Search } from "lucide-react";
 import { Input } from "../../ui/input";
 import { Skeleton } from "../../ui/skeleton";
 import { Spinner } from "../../ui/spinner";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface CategoryFilterProps {
 	selectedCategory?: Category["idCategory"];
@@ -53,7 +55,7 @@ const CategoryFilter = ({
 							placeholder='Search recipes...'
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className='pl-10 pr-10'
+							className='pl-10 pr-10 max-w-md bg-white border border-gray-300'
 						/>
 						{isLoading && (
 							<div className='absolute right-3 top-1/2 -translate-y-1/2'>
@@ -68,19 +70,24 @@ const CategoryFilter = ({
 						<DropdownMenuTrigger asChild>
 							<Button
 								variant='outline'
-								className='gap-2 font-inter'
+								className='gap-2 font-inter bg-white border border-gray-300 text-gray-600'
+								size='sm'
 								disabled={isLoading}>
 								<Filter className='size-4' />
 								Filter
 								{selectedCategoryLabel && (
-									<span className='ml-1 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-semibold text-white'>
+									<Badge variant='emerald' className=''>
 										{selectedCategoryLabel}
-									</span>
+									</Badge>
 								)}
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent align='end' className='w-56'>
-							<DropdownMenuLabel>Categories</DropdownMenuLabel>
+						<DropdownMenuContent
+							align='end'
+							className='w-56 bg-white border border-gray-300'>
+							<DropdownMenuLabel className='text-gray-600 ml-6'>
+								Categories
+							</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							{isError ? (
 								<div className='px-2 py-1.5 text-sm text-red-600 font-inter'>
@@ -100,6 +107,9 @@ const CategoryFilter = ({
 								categoryOptions.map((category) => (
 									<DropdownMenuCheckboxItem
 										key={category.id}
+										className={cn({
+											"bg-gray-100": selectedCategory === category.id,
+										})}
 										checked={selectedCategory === category.id}
 										onCheckedChange={() => handleCategoryToggle(category.id)}>
 										{category.label}

@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Recipe } from "@/types";
 
@@ -11,26 +12,29 @@ const RecipeCard = ({ recipe, onClick }: RecipeCardProps) => {
 		<Card
 			key={recipe.idMeal}
 			onClick={() => onClick(recipe.idMeal)}
-			className='overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border-gray-200'>
+			className='overflow-hidden cursor-pointer border-gray-200 pt-0 shadow-xs group gap-2'>
 			<div className='relative w-full h-48 overflow-hidden'>
 				<img
 					src={recipe.strMealThumb}
 					alt={recipe.strMeal}
-					className='w-full h-full object-cover'
+					className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
 					loading='lazy'
 					fetchPriority='low'
 				/>
 			</div>
-			<CardHeader>
-				<CardTitle className='font-nunito text-lg line-clamp-2'>
+			<CardHeader className='px-4'>
+				<CardTitle className='font-nunito text-lg line-clamp-1'>
 					{recipe.strMeal}
 				</CardTitle>
 				<p className='text-sm text-gray-600 font-inter mt-1'>
-					{recipe.strCategory} • {recipe.strArea}
+					<Badge variant='outline' className='text-gray-600'>
+						{recipe.strCategory}
+					</Badge>{" "}
+					• <Badge variant='outline'>{recipe.strArea}</Badge>
 				</p>
 			</CardHeader>
-			<CardContent>
-				<p className='text-sm text-gray-700 font-inter line-clamp-3'>
+			<CardContent className='px-4'>
+				<p className='text-sm text-gray-700 font-inter line-clamp-3 whitespace-pre-line italic'>
 					{recipe.strInstructions}
 				</p>
 			</CardContent>

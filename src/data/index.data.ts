@@ -1,17 +1,28 @@
 import type { TabsType } from "@/types";
+import type { LucideIcon } from "lucide-react";
+import { BookOpen, Calendar, ShoppingBag } from "lucide-react";
 
-export const TabsData: { label: string; value: TabsType }[] = [
+export interface TabData {
+	label: string;
+	value: TabsType;
+	icon?: LucideIcon;
+}
+
+export const TabsData: TabData[] = [
 	{
 		label: "Browse",
 		value: "browse",
+		icon: BookOpen,
 	},
 	{
 		label: "Meal Planner",
 		value: "meal-planner",
+		icon: Calendar,
 	},
 	{
 		label: "Shopping List",
 		value: "shopping-list",
+		icon: ShoppingBag,
 	},
 ];
 

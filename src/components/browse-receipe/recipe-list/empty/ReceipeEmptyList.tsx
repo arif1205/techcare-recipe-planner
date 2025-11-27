@@ -11,7 +11,7 @@ import { Vegan } from "lucide-react";
 const ReceipeEmptyList = () => {
 	return (
 		<Card className='p-6 border-gray-200'>
-			<Empty>
+			<Empty itemType='error'>
 				<EmptyHeader>
 					<EmptyMedia variant='icon'>
 						<Vegan className='size-6 text-muted-foreground' />
