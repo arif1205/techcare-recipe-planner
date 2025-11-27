@@ -1,11 +1,11 @@
 const AppHeader = () => {
 	return (
 		<header className='relative w-full h-64'>
-			<div className='absolute inset-0'>
+			<div className='absolute inset-0 -top-44'>
 				<img
-					src='/images/salad.jpg'
+					src='/images/food.jpg'
 					alt='Food ingredients'
-					className='w-full h-full object-cover'
+					className='w-full h-full object-cover scale-x-[-1]'
 					loading='lazy'
 					fetchPriority='low'
 				/>

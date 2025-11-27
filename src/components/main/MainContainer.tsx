@@ -9,7 +9,17 @@ const MainContainer = () => {
 	const { currentTab, handleChangeTab } = useCurrentTabState();
 
 	return (
-		<main className='max-w-7xl mx-auto px-4 pb-8 mt-10'>
+		<main className='max-w-7xl mx-auto px-4 pb-8 mt-6'>
+			{/* Main title  */}
+			<div className=''>
+				<div className='title-with-icon flex '>
+					<h1 className='text-3xl font-bold uppercase'>Recipe Planner</h1>
+				</div>
+
+				<p className='text-sm text-gray-500'>
+					Plan your meals and shopping list for the week.
+				</p>
+			</div>
 			<Tabs defaultValue={currentTab} className='w-full'>
 				<TabsList className='grid w-full grid-cols-3 backdrop-blur-sm shadow-lg'>
 					{TabsData.map((tab) => (
