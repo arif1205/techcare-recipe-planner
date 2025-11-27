@@ -8,4 +8,8 @@ export interface MealPlan {
 export interface GlobalState {
 	mealPlan: MealPlan;
 	currentTab: TabsType;
+	currentWeek: {
+		weekStart: Date;
+		weekEnd: Date;
+	};
 }

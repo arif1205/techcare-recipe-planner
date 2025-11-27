@@ -1,5 +1,6 @@
 import {
 	CURRENT_TAB_STORAGE_KEY,
+	CURRENT_WEEK_STORAGE_KEY,
 	MEAL_PLAN_STORAGE_KEY,
 } from "@/data/index.data";
 import type { GlobalState, MealPlan, MealPlanRecipe, TabsType } from "@/types";
@@ -34,9 +35,26 @@ const loadCurrentTabFromStorage = (): TabsType => {
 	return "browse";
 };
 
+const loadCurrentWeekFromStorage = (): { weekStart: Date; weekEnd: Date } => {
+	try {
+		const stored = localStorage.getItem(CURRENT_WEEK_STORAGE_KEY);
+		if (stored) {
+			return JSON.parse(stored);
+		}
+	} catch (error) {
+		console.error("Failed to load current week from localStorage:", error);
+	}
+
+	return {
+		weekStart: new Date(),
+		weekEnd: new Date(),
+	};
+};
+
 const initialState: GlobalState = {
 	mealPlan: loadMealPlanFromStorage(),
 	currentTab: loadCurrentTabFromStorage(),
+	currentWeek: loadCurrentWeekFromStorage(),
 };
 
 const globalSlice = createSlice({
@@ -58,6 +76,12 @@ const globalSlice = createSlice({
 		setCurrentTab(state, action: PayloadAction<TabsType>) {
 			state.currentTab = action.payload;
 		},
+		setCurrentWeek(
+			state,
+			action: PayloadAction<{ weekStart: Date; weekEnd: Date }>
+		) {
+			state.currentWeek = action.payload;
+		},
 	},
 });
 
@@ -66,6 +90,7 @@ export const {
 	removeFromMealPlan,
 	clearMealPlan,
 	setCurrentTab,
+	setCurrentWeek,
 } = globalSlice.actions;
 export default globalSlice.reducer;
 
@@ -94,6 +119,18 @@ export const mealPlanMiddleware: Middleware = (store) => (next) => (action) => {
 			localStorage.setItem(CURRENT_TAB_STORAGE_KEY, state.global.currentTab);
 		} catch (error) {
 			console.error("Failed to save current tab to localStorage:", error);
+		}
+	}
+
+	if (setCurrentWeek.match(action)) {
+		const state = store.getState() as { global: GlobalState };
+		try {
+			localStorage.setItem(
+				CURRENT_WEEK_STORAGE_KEY,
+				JSON.stringify(state.global.currentWeek)
+			);
+		} catch (error) {
+			console.error("Failed to save current week to localStorage:", error);
 		}
 	}
 

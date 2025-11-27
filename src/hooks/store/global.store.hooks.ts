@@ -1,7 +1,10 @@
 import type { RootState } from "@/store/store";
 import { useAppDispatch, useAppSelector } from "./store.hooks";
 import type { MealPlanRecipe, TabsType } from "@/types";
-import { setCurrentTab } from "@/store/slice/global/globalSlice";
+import {
+	setCurrentTab,
+	setCurrentWeek,
+} from "@/store/slice/global/globalSlice";
 
 export function useGlobalState() {
 	return useAppSelector((state: RootState) => state.global);
@@ -52,4 +55,25 @@ export function useCurrentTabState(): {
 		dispatch(setCurrentTab(tab));
 	};
 	return { currentTab, handleChangeTab };
+}
+
+export function useCurrentWeekState(): {
+	weekStart: Date;
+	weekEnd: Date;
+	updateCurrentWeek: (weekStart: Date, weekEnd: Date) => void;
+} {
+	const currentWeek = useAppSelector(
+		(state: RootState) => state.global.currentWeek
+	);
+	const dispatch = useAppDispatch();
+
+	const updateCurrentWeek = (weekStart: Date, weekEnd: Date) => {
+		dispatch(setCurrentWeek({ weekStart, weekEnd }));
+	};
+
+	return {
+		weekStart: new Date(currentWeek.weekStart || new Date()),
+		weekEnd: new Date(currentWeek.weekEnd || new Date()),
+		updateCurrentWeek,
+	};
 }

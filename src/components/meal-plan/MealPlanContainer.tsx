@@ -11,18 +11,14 @@ import DayCard from "./calendar/DayCard";
 import WeekNavigator from "./calendar/WeekNavigator";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { useWeek } from "@/hooks/week/useWeek.hook";
 
 const MealPlanContainer = () => {
 	const dispatch = useAppDispatch();
 
 	const {
-		isModalOpen,
-		selectedDate,
 		weekDays,
 		weekDateRange,
-		setIsModalOpen,
-		setSelectedDate,
-		getMealForDate,
 		goToPreviousWeek,
 		goToNextWeek,
 		goToCurrentWeek,
@@ -30,6 +26,14 @@ const MealPlanContainer = () => {
 		formatDayLabel,
 		formatDayNumber,
 		isToday,
+	} = useWeek();
+
+	const {
+		isModalOpen,
+		selectedDate,
+		setIsModalOpen,
+		setSelectedDate,
+		getMealForDate,
 		handleAddMeal,
 	} = useMealPlan();
 

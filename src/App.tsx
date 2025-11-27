@@ -4,6 +4,7 @@ import { TabsData } from "./data/index.data";
 import BrowseAllRecipe from "./components/browse-receipe/BrowseAllRecipe";
 import MealPlanContainer from "./components/meal-plan/MealPlanContainer";
 import { useCurrentTabState } from "./hooks/store/global.store.hooks";
+import ShoppingListContainer from "./components/shopping-list/ShoppingListContainer";
 
 function App() {
 	const { currentTab, handleChangeTab } = useCurrentTabState();
@@ -42,7 +43,9 @@ function App() {
 					<TabsContent value='meal-planner'>
 						<MealPlanContainer />
 					</TabsContent>
-					<TabsContent value='shopping-list'></TabsContent>
+					<TabsContent value='shopping-list'>
+						<ShoppingListContainer />
+					</TabsContent>
 				</Tabs>
 			</main>
 		</div>
