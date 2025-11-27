@@ -213,27 +213,25 @@
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
-@base {
-	* {
-		@apply m-0 p-0 box-border outline-ring/50 font-inter;
-	}
+* {
+	@apply m-0 p-0 box-border outline-ring/50 font-inter;
+}
 
-	html {
-		@apply scroll-smooth;
-	}
+html {
+	@apply scroll-smooth;
+}
 
-	body {
-		@apply bg-background text-foreground;
-	}
+body {
+	@apply bg-background text-foreground;
+}
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		@apply font-nunito;
-	}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-nunito;
 }
 
 ::-webkit-scrollbar {
