@@ -1,5 +1,8 @@
-import { MEAL_PLAN_STORAGE_KEY } from "@/data/index.data";
-import type { GlobalState, MealPlan, MealPlanRecipe } from "@/types";
+import {
+	CURRENT_TAB_STORAGE_KEY,
+	MEAL_PLAN_STORAGE_KEY,
+} from "@/data/index.data";
+import type { GlobalState, MealPlan, MealPlanRecipe, TabsType } from "@/types";
 import {
 	createSlice,
 	type Middleware,
@@ -18,8 +21,22 @@ const loadMealPlanFromStorage = (): MealPlan => {
 	return {};
 };
 
+const loadCurrentTabFromStorage = (): TabsType => {
+	try {
+		const stored = localStorage.getItem(CURRENT_TAB_STORAGE_KEY);
+		if (stored) {
+			return stored as TabsType;
+		}
+	} catch (error) {
+		console.error("Failed to load current tab from localStorage:", error);
+	}
+
+	return "browse";
+};
+
 const initialState: GlobalState = {
 	mealPlan: loadMealPlanFromStorage(),
+	currentTab: loadCurrentTabFromStorage(),
 };
 
 const globalSlice = createSlice({
@@ -38,11 +55,18 @@ const globalSlice = createSlice({
 		clearMealPlan(state) {
 			state.mealPlan = {};
 		},
+		setCurrentTab(state, action: PayloadAction<TabsType>) {
+			state.currentTab = action.payload;
+		},
 	},
 });
 
-export const { addToMealPlan, removeFromMealPlan, clearMealPlan } =
-	globalSlice.actions;
+export const {
+	addToMealPlan,
+	removeFromMealPlan,
+	clearMealPlan,
+	setCurrentTab,
+} = globalSlice.actions;
 export default globalSlice.reducer;
 
 export const mealPlanMiddleware: Middleware = (store) => (next) => (action) => {
@@ -61,6 +85,15 @@ export const mealPlanMiddleware: Middleware = (store) => (next) => (action) => {
 			);
 		} catch (error) {
 			console.error("Failed to save meal plan to localStorage:", error);
+		}
+	}
+
+	if (setCurrentTab.match(action)) {
+		const state = store.getState() as { global: GlobalState };
+		try {
+			localStorage.setItem(CURRENT_TAB_STORAGE_KEY, state.global.currentTab);
+		} catch (error) {
+			console.error("Failed to save current tab to localStorage:", error);
 		}
 	}
 

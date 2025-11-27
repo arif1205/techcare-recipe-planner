@@ -1,4 +1,6 @@
-export const TabsData = [
+import type { TabsType } from "@/types";
+
+export const TabsData: { label: string; value: TabsType }[] = [
 	{
 		label: "Browse",
 		value: "browse",
@@ -15,3 +17,4 @@ export const TabsData = [
 
 export const INSTRUCTIONS_PREVIEW_LENGTH = 200;
 export const MEAL_PLAN_STORAGE_KEY = "mealPlan";
+export const CURRENT_TAB_STORAGE_KEY = "currentTab";

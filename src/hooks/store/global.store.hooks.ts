@@ -1,6 +1,7 @@
 import type { RootState } from "@/store/store";
-import { useAppSelector } from "./store.hooks";
-import type { MealPlanRecipe } from "@/types";
+import { useAppDispatch, useAppSelector } from "./store.hooks";
+import type { MealPlanRecipe, TabsType } from "@/types";
+import { setCurrentTab } from "@/store/slice/global/globalSlice";
 
 export function useGlobalState() {
 	return useAppSelector((state: RootState) => state.global);
@@ -37,4 +38,18 @@ export function useMealPlanState(dateRange?: {
 		startDate: dateRange.startDate,
 		endDate: dateRange.endDate,
 	};
+}
+
+export function useCurrentTabState(): {
+	currentTab: TabsType;
+	handleChangeTab: (tab: TabsType) => void;
+} {
+	const currentTab = useAppSelector(
+		(state: RootState) => state.global.currentTab
+	);
+	const dispatch = useAppDispatch();
+	const handleChangeTab = (tab: TabsType) => {
+		dispatch(setCurrentTab(tab));
+	};
+	return { currentTab, handleChangeTab };
 }
