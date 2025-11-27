@@ -28,10 +28,10 @@ const IngredientsListComponent = ({
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center justify-start gap-2 px-1'>
 					<h3 className='text-lg font-semibold font-nunito text-gray-800'>
-						Shopping List
+						Auto-Generated Shopping List
 					</h3>
 					<span className='text-sm font-inter text-gray-800'>
-						{purchasedCount} / {ingredients.length} completed
+						{purchasedCount}/{ingredients.length} purchased
 					</span>
 				</div>
 

@@ -1,10 +1,9 @@
-import { format } from "date-fns";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { TabsData } from "./data/index.data";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BrowseAllRecipe from "./components/browse-receipe/BrowseAllRecipe";
 import MealPlanContainer from "./components/meal-plan/MealPlanContainer";
-import { useCurrentTabState } from "./hooks/store/global.store.hooks";
 import ShoppingListContainer from "./components/shopping-list/ShoppingListContainer";
+import { TabsData } from "./data/index.data";
+import { useCurrentTabState } from "./hooks/store/global.store.hooks";
 
 function App() {
 	const { currentTab, handleChangeTab } = useCurrentTabState();
@@ -18,12 +17,6 @@ function App() {
 			</header>
 
 			<main className='max-w-6xl mx-auto px-4 pb-8'>
-				<div className='mb-6 text-center'>
-					<p className='text-lg font-semibold text-emerald-700 font-inter'>
-						{format(new Date(), "EEEE, MMM dd, yyyy")}
-					</p>
-				</div>
-
 				<Tabs defaultValue={currentTab} className='w-full'>
 					<TabsList className='grid w-full grid-cols-3 bg-white/80 backdrop-blur-sm shadow-lg border border-emerald-200'>
 						{TabsData.map((tab) => (
