@@ -5,6 +5,12 @@ export interface MealPlan {
 	[date: string]: MealPlanRecipe;
 }
 
+export interface IngredientsList {
+	[key: string]: {
+		purchased: boolean;
+	};
+}
+
 export interface GlobalState {
 	mealPlan: MealPlan;
 	currentTab: TabsType;
@@ -12,4 +18,5 @@ export interface GlobalState {
 		weekStart: Date;
 		weekEnd: Date;
 	};
+	ingredientsList: IngredientsList;
 }

@@ -19,3 +19,4 @@ export const INSTRUCTIONS_PREVIEW_LENGTH = 200;
 export const MEAL_PLAN_STORAGE_KEY = "mealPlan";
 export const CURRENT_TAB_STORAGE_KEY = "currentTab";
 export const CURRENT_WEEK_STORAGE_KEY = "currentWeek";
+export const INGREDIENTS_LIST_STORAGE_KEY = "ingredientsList";
