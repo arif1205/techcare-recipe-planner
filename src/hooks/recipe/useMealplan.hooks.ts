@@ -2,9 +2,12 @@ import { useMealPlanState } from "@/hooks/store/global.store.hooks";
 import type { MealPlanRecipe } from "@/types";
 import { format } from "date-fns";
 import { useState } from "react";
-import { useWeek } from "../week/useWeek.hook";
 
-export const useMealPlan = () => {
+export const useMealPlan = ({
+	week,
+}: {
+	week: { weekStart: Date; weekEnd: Date };
+}) => {
 	/**
 	 * Modal controllers
 	 */
@@ -19,10 +22,9 @@ export const useMealPlan = () => {
 	/**
 	 * Meal plan controllers
 	 */
-	const { weekStart, weekEnd } = useWeek();
 	const { mealPlan } = useMealPlanState({
-		startDate: weekStart,
-		endDate: weekEnd,
+		startDate: week.weekStart,
+		endDate: week.weekEnd,
 	});
 
 	/**

@@ -32,21 +32,32 @@ export const loadCurrentTabFromStorage = (): TabsType => {
 };
 
 export const loadCurrentWeekFromStorage = (): {
-	weekStart: Date;
-	weekEnd: Date;
+	weekStart: string;
+	weekEnd: string;
 } => {
 	try {
 		const stored = localStorage.getItem(CURRENT_WEEK_STORAGE_KEY);
 		if (stored) {
-			return JSON.parse(stored);
+			const parsed = JSON.parse(stored);
+			return {
+				weekStart:
+					typeof parsed.weekStart === "string"
+						? parsed.weekStart
+						: new Date(parsed.weekStart).toISOString(),
+				weekEnd:
+					typeof parsed.weekEnd === "string"
+						? parsed.weekEnd
+						: new Date(parsed.weekEnd).toISOString(),
+			};
 		}
 	} catch (error) {
 		console.error("Failed to load current week from localStorage:", error);
 	}
 
+	const now = new Date();
 	return {
-		weekStart: new Date(),
-		weekEnd: new Date(),
+		weekStart: now.toISOString(),
+		weekEnd: now.toISOString(),
 	};
 };
 

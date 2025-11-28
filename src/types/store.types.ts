@@ -16,8 +16,8 @@ export interface GlobalState {
 	mealPlan: MealPlan;
 	currentTab: TabsType;
 	currentWeek: {
-		weekStart: Date;
-		weekEnd: Date;
+		weekStart: string; // ISO date string for Redux serialization
+		weekEnd: string; // ISO date string for Redux serialization
 	};
 	ingredientsList: IngredientsList;
 }

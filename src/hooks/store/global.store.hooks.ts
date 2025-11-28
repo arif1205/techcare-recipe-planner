@@ -72,7 +72,12 @@ export function useCurrentWeekState(): {
 	const dispatch = useAppDispatch();
 
 	const updateCurrentWeek = (weekStart: Date, weekEnd: Date) => {
-		dispatch(setCurrentWeek({ weekStart, weekEnd }));
+		dispatch(
+			setCurrentWeek({
+				weekStart: weekStart.toISOString(),
+				weekEnd: weekEnd.toISOString(),
+			})
+		);
 	};
 
 	return {

@@ -50,7 +50,7 @@ const globalSlice = createSlice({
 		},
 		setCurrentWeek(
 			state,
-			action: PayloadAction<{ weekStart: Date; weekEnd: Date }>
+			action: PayloadAction<{ weekStart: string; weekEnd: string }>
 		) {
 			state.currentWeek = action.payload;
 		},

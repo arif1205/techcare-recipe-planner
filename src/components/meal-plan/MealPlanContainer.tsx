@@ -19,6 +19,8 @@ const MealPlanContainer = () => {
 	const {
 		weekDays,
 		weekDateRange,
+		weekStart,
+		weekEnd,
 		goToPreviousWeek,
 		goToNextWeek,
 		formatDateKey,
@@ -34,7 +36,7 @@ const MealPlanContainer = () => {
 		setSelectedDate,
 		getMealForDate,
 		handleAddMeal,
-	} = useMealPlan();
+	} = useMealPlan({ week: { weekStart, weekEnd } });
 
 	const handleSelectRecipe = (recipe: Recipe) => {
 		if (!selectedDate) return;
