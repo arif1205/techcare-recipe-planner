@@ -21,7 +21,6 @@ const MealPlanContainer = () => {
 		weekDateRange,
 		goToPreviousWeek,
 		goToNextWeek,
-		goToCurrentWeek,
 		formatDateKey,
 		formatDayLabel,
 		formatDayNumber,
@@ -70,12 +69,11 @@ const MealPlanContainer = () => {
 	};
 
 	return (
-		<div className='space-y-6'>
+		<div className='space-y-2'>
 			<WeekNavigator
 				formattedDateRange={weekDateRange}
 				onPreviousWeek={goToPreviousWeek}
 				onNextWeek={goToNextWeek}
-				onGoToCurrentWeek={goToCurrentWeek}
 			/>
 
 			<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2'>
