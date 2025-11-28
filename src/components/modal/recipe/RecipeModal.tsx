@@ -1,3 +1,4 @@
+import RecipeDetailsSkeleton from "@/components/browse-receipe/recipe-details/RecipeDetailsSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,7 +9,6 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
 import { INSTRUCTIONS_PREVIEW_LENGTH } from "@/data/index.data";
 import { useRecipeDetails } from "@/hooks/recipe/useRecipeDetails.hook";
 import { useState } from "react";
@@ -34,11 +34,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 				onOpenChange();
 			}}>
 			<DialogContent className='max-w-full w-2xl max-h-[90vh] overflow-y-auto'>
-				{isLoading && (
-					<div className='flex items-center justify-center py-12'>
-						<Spinner className='size-8' />
-					</div>
-				)}
+				{isLoading && <RecipeDetailsSkeleton />}
 
 				{isError && (
 					<div className='text-center py-12'>

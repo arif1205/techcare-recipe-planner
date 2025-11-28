@@ -9,7 +9,7 @@ export const useRecipeDetails = ({
 	recipeId?: string;
 	shouldSkip?: boolean;
 }) => {
-	const { data, isLoading, isError } = useApi().queries.recipes.getRecipeById(
+	const { data, isFetching, isError } = useApi().queries.recipes.getRecipeById(
 		recipeId!,
 		{ skip: shouldSkip }
 	);
@@ -35,7 +35,7 @@ export const useRecipeDetails = ({
 
 	return {
 		data,
-		isLoading,
+		isLoading: isFetching,
 		isError,
 		ingredients,
 	};
