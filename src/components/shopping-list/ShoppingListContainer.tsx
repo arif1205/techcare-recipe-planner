@@ -2,12 +2,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useShoppingList } from "@/hooks/recipe/useShoppingList.hooks";
 import { useMemo } from "react";
 import IngredientsListComponent from "./ingredients-list/IngredientsList";
+import IngredientListSkeleton from "./ingredients-list/loading/IngredientListSkeleton";
 
 const ShoppingListContainer = () => {
 	const {
 		ingredientsList,
-		clearCompletedIngredients,
-		updateIngredientsByPurchasedStatus,
+		toggleIngredientsPurchasedStatus,
+		isLoading,
+		clearCompletedItems,
 	} = useShoppingList();
 
 	const hasCompletedItems = useMemo(() => {
@@ -17,12 +19,16 @@ const ShoppingListContainer = () => {
 	return (
 		<Card className='border-gray-200 shadow-none!'>
 			<CardContent className=''>
-				<IngredientsListComponent
-					ingredientsList={ingredientsList}
-					onToggleIngredient={updateIngredientsByPurchasedStatus}
-					onClearCompleted={clearCompletedIngredients}
-					hasCompletedItems={hasCompletedItems}
-				/>
+				{isLoading ? (
+					<IngredientListSkeleton />
+				) : (
+					<IngredientsListComponent
+						ingredientsList={ingredientsList}
+						onToggleIngredient={toggleIngredientsPurchasedStatus}
+						onClearCompleted={clearCompletedItems}
+						hasCompletedItems={hasCompletedItems}
+					/>
+				)}
 			</CardContent>
 		</Card>
 	);
