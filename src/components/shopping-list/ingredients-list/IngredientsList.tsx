@@ -25,8 +25,8 @@ const IngredientsListComponent = ({
 
 	return (
 		<div className='space-y-2'>
-			<div className='flex items-center justify-between'>
-				<div className='flex items-center justify-start gap-2 px-1'>
+			<div className='flex items-center justify-between flex-wrap gap-2'>
+				<div className='flex items-center justify-start gap-x-2 px-1 flex-wrap'>
 					<h3 className='text-lg font-semibold font-nunito text-gray-800'>
 						Auto-Generated Shopping List
 					</h3>

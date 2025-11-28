@@ -33,7 +33,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 				setIsInstructionsExpanded(false);
 				onOpenChange();
 			}}>
-			<DialogContent className='max-w-2xl! w-2xl max-h-[90vh] overflow-y-auto'>
+			<DialogContent className='max-w-full w-2xl max-h-[90vh] overflow-y-auto'>
 				{isLoading && (
 					<div className='flex items-center justify-center py-12'>
 						<Spinner className='size-8' />

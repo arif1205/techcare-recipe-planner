@@ -49,7 +49,7 @@ const DayCard = ({
 				<CardContent className='flex-1 flex flex-col gap-3 sm:min-h-52 px-2'>
 					{meal ? (
 						<div className='flex-1 flex flex-col gap-2'>
-							<div className='relative w-full h-28'>
+							<div className='relative w-full sm:h-28 h-20'>
 								<figure className='w-full h-full overflow-hidden rounded-sm'>
 									<img
 										src={meal.thumbnail}
