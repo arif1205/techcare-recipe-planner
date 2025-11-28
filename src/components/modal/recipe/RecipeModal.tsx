@@ -93,7 +93,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 										onClick={() =>
 											setIsInstructionsExpanded(!isInstructionsExpanded)
 										}
-										className='mt-2 text-emerald-600 hover:text-emerald-700 hover:cursor-pointer font-inter text-sm px-0 py-0! hover:bg-transparent'>
+										className='mt-2 hover:cursor-pointer font-inter text-sm px-0 py-0! hover:bg-transparent underline'>
 										{isInstructionsExpanded ? "See less" : "See more"}
 									</Button>
 								)}
@@ -112,9 +112,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 											className='flex items-center gap-2 p-2 rounded-md bg-gray-50'>
 											<span className='font-inter text-sm'>
 												{item.measure && (
-													<span className='font-semibold text-emerald-600'>
-														{item.measure}
-													</span>
+													<span className='font-semibold'>{item.measure}</span>
 												)}{" "}
 												{item.ingredient}
 											</span>
@@ -131,12 +129,8 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 										Tags
 									</h3>
 									<div className='flex flex-wrap gap-2'>
-										{data.strTags.split(",").map((tag, index) => (
-											<span
-												key={index}
-												className='px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-sm font-inter'>
-												{tag.trim()}
-											</span>
+										{data.strTags.split(",").map((tag) => (
+											<Badge variant='emerald'>{tag.trim()}</Badge>
 										))}
 									</div>
 								</div>
@@ -149,7 +143,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 											href={data.strYoutube}
 											target='_blank'
 											rel='noopener noreferrer'
-											className='text-emerald-600 hover:text-emerald-700 underline font-inter text-sm'>
+											className='text-blue-600 hover:text-blue-700 underline font-inter text-sm'>
 											Watch on YouTube
 										</a>
 									</div>
@@ -161,7 +155,7 @@ const RecipeModal = ({ recipeId, open, onOpenChange }: RecipeModalProps) => {
 											href={data.strSource}
 											target='_blank'
 											rel='noopener noreferrer'
-											className='text-emerald-600 hover:text-emerald-700 underline font-inter text-sm'>
+											className='text-blue-600 hover:text-blue-700 underline font-inter text-sm'>
 											View Original Recipe Source
 										</a>
 									</div>
