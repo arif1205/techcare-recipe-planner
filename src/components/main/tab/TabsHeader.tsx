@@ -18,10 +18,10 @@ const TabsHeader = ({
 						key={tab.value}
 						value={tab.value}
 						className={cn(
-							"relative h-auto px-4 py-2 text-sm font-medium text-gray-600 bg-transparent border-0 rounded-none transition-colors w-fit flex-0",
+							"relative h-auto px-4 py-2 text-sm font-medium text-gray-600 bg-transparent border-0 rounded-none transition-colors w-fit flex-0 cursor-pointer",
 							"hover:text-gray-900 hover:bg-transparent",
-							"data-[state=active]:text-blue-600 data-[state=active]:bg-transparent data-[state=active]:shadow-none",
-							"data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-600",
+							"data-[state=active]:text-green-600 data-[state=active]:bg-transparent data-[state=active]:shadow-none",
+							"data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-green-600",
 							"focus-visible:outline-none focus-visible:ring-0"
 						)}>
 						{Icon && <Icon className='size-4' />}
