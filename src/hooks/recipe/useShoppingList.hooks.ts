@@ -68,6 +68,19 @@ export const useShoppingList = () => {
 				.then((responses) => {
 					const recipes = responses.map((response) => response.data.meals?.[0]);
 
+					/**
+					 * This is necessary since Redux state object mutating act as a shallow copy and become frozen
+					 */
+					const initialAccumulator: IngredientsList = Object.fromEntries(
+						Object.entries(currentIngredientsList).map(([key, value]) => [
+							key,
+							{
+								...value,
+								measures: [...value.measures], // Create a new array copy
+							},
+						])
+					);
+
 					const ingredientsList = recipes.reduce(
 						(acc: IngredientsList, recipe) => {
 							for (let i = 1; i <= 20; i++) {
@@ -87,7 +100,13 @@ export const useShoppingList = () => {
 											trimmedMeasure &&
 											!acc[trimmedIngredient].measures.includes(trimmedMeasure)
 										) {
-											acc[trimmedIngredient].measures.push(trimmedMeasure);
+											acc[trimmedIngredient] = {
+												...acc[trimmedIngredient],
+												measures: [
+													...acc[trimmedIngredient].measures,
+													trimmedMeasure,
+												],
+											};
 										}
 									} else {
 										acc[trimmedIngredient] = {
@@ -99,8 +118,9 @@ export const useShoppingList = () => {
 							}
 							return acc;
 						},
-						{ ...currentIngredientsList }
+						initialAccumulator
 					);
+
 					setIngredientsList(ingredientsList);
 
 					/**
