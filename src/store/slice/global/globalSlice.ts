@@ -10,7 +10,6 @@ import {
 	loadIngredientsListFromStorage,
 	loadMealPlanFromStorage,
 } from "@/lib/localstorage";
-import { calculateIngredientsList } from "@/lib/receipe";
 import type {
 	GlobalState,
 	IngredientsList,
@@ -23,18 +22,11 @@ import {
 	type PayloadAction,
 } from "@reduxjs/toolkit";
 
-const loadedMealPlan = loadMealPlanFromStorage();
-const loadedIngredientsList = loadIngredientsListFromStorage();
-
 const initialState: GlobalState = {
-	mealPlan: loadedMealPlan,
+	mealPlan: loadMealPlanFromStorage(),
 	currentTab: loadCurrentTabFromStorage(),
 	currentWeek: loadCurrentWeekFromStorage(),
-	ingredientsList: calculateIngredientsList(
-		loadedMealPlan,
-		loadedIngredientsList,
-		true
-	),
+	ingredientsList: loadIngredientsListFromStorage(),
 };
 
 const globalSlice = createSlice({
@@ -46,21 +38,12 @@ const globalSlice = createSlice({
 			action: PayloadAction<{ date: string; recipe: MealPlanRecipe }>
 		) {
 			state.mealPlan[action.payload.date] = action.payload.recipe;
-			state.ingredientsList = calculateIngredientsList(
-				state.mealPlan,
-				state.ingredientsList
-			);
 		},
 		removeFromMealPlan(state, action: PayloadAction<string>) {
 			delete state.mealPlan[action.payload];
-			state.ingredientsList = calculateIngredientsList(
-				state.mealPlan,
-				state.ingredientsList
-			);
 		},
 		clearMealPlan(state) {
 			state.mealPlan = {};
-			state.ingredientsList = {};
 		},
 		setCurrentTab(state, action: PayloadAction<TabsType>) {
 			state.currentTab = action.payload;
@@ -128,7 +111,13 @@ export default globalSlice.reducer;
 export const globalSliceMiddleware: Middleware =
 	(store) => (next) => (action) => {
 		const result = next(action);
+		/**
+		 * Update the localStorage when the related actions are dispatched
+		 */
 
+		/**
+		 * Save the meal plan to localStorage when the related actions are dispatched
+		 */
 		if (
 			addToMealPlan.match(action) ||
 			removeFromMealPlan.match(action) ||
@@ -140,16 +129,14 @@ export const globalSliceMiddleware: Middleware =
 					MEAL_PLAN_STORAGE_KEY,
 					JSON.stringify(state.global.mealPlan)
 				);
-				// Also save ingredientsList since it's recalculated when mealPlan changes
-				localStorage.setItem(
-					INGREDIENTS_LIST_STORAGE_KEY,
-					JSON.stringify(state.global.ingredientsList)
-				);
 			} catch (error) {
 				console.error("Failed to save meal plan to localStorage:", error);
 			}
 		}
 
+		/**
+		 * Save the current tab to localStorage when the related actions are dispatched
+		 */
 		if (setCurrentTab.match(action)) {
 			const state = store.getState() as { global: GlobalState };
 			try {
@@ -159,6 +146,9 @@ export const globalSliceMiddleware: Middleware =
 			}
 		}
 
+		/**
+		 * Save the current week to localStorage when the related actions are dispatched
+		 */
 		if (setCurrentWeek.match(action)) {
 			const state = store.getState() as { global: GlobalState };
 			try {
@@ -171,6 +161,9 @@ export const globalSliceMiddleware: Middleware =
 			}
 		}
 
+		/**
+		 * Update the localStorage when the related actions are dispatched
+		 */
 		if (
 			setIngredientsList.match(action) ||
 			addToIngredientsList.match(action) ||

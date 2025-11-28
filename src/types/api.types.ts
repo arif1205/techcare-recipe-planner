@@ -84,7 +84,5 @@ export interface MealPlanRecipe {
 	name: string;
 	category: string;
 	area: string;
-	instructions: string;
 	thumbnail: string;
-	ingredients: { name: string; measure: string }[];
 }

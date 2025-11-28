@@ -1,48 +1,35 @@
-import type { IngredientsList, MealPlan } from "@/types";
-import { saveIngredientsListToStorage } from "./localstorage";
+import type { IngredientsList, Recipe } from "@/types";
 
 export const calculateIngredientsList = (
-	mealPlan: MealPlan,
-	currentIngredientsList: IngredientsList,
-	isInitialLoad: boolean = false
+	recipes: Recipe[],
+	currentIngredientsList: IngredientsList
 ): IngredientsList => {
-	if (
-		currentIngredientsList !== undefined &&
-		Object.keys(currentIngredientsList).length > 0 &&
-		isInitialLoad
-	) {
-		return currentIngredientsList;
-	}
+	const ingredientList = currentIngredientsList;
 
-	const ingredientNames = new Set<string>();
-	const ingredientMeasures = new Set<string>();
+	recipes.forEach((recipe) => {
+		for (let i = 1; i <= 20; i++) {
+			const ingredientName = recipe[
+				`strIngredient${i}` as keyof Recipe
+			] as string;
+			const ingredientMeasure = recipe[
+				`strMeasure${i}` as keyof Recipe
+			] as string;
 
-	Object.values(mealPlan).forEach((recipe) => {
-		recipe.ingredients.forEach((ingredient) => {
-			if (ingredient.name && ingredient.name.trim()) {
-				ingredientNames.add(ingredient.name.trim());
-				ingredientMeasures.add(ingredient.measure.trim());
+			if (ingredientName && ingredientName.trim()) {
+				// if already exists, add the measure to the existing measures
+				if (ingredientList[ingredientName.trim()]) {
+					ingredientList[ingredientName.trim()].measures.push(
+						ingredientMeasure.trim()
+					);
+				} else {
+					ingredientList[ingredientName.trim()] = {
+						purchased: false,
+						measures: [ingredientMeasure.trim()],
+					};
+				}
 			}
-		});
-	});
-
-	const newIngredientsList: IngredientsList = {};
-
-	ingredientNames.forEach((ingredientName) => {
-		if (currentIngredientsList[ingredientName]) {
-			newIngredientsList[ingredientName] = {
-				purchased: currentIngredientsList[ingredientName].purchased,
-				measures: Array.from(ingredientMeasures),
-			};
-		} else {
-			newIngredientsList[ingredientName] = {
-				purchased: false,
-				measures: Array.from(ingredientMeasures),
-			};
 		}
 	});
 
-	saveIngredientsListToStorage(newIngredientsList);
-
-	return newIngredientsList;
+	return ingredientList;
 };
