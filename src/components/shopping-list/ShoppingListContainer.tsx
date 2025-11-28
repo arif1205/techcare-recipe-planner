@@ -15,20 +15,16 @@ const ShoppingListContainer = () => {
 	}, [ingredientsList]);
 
 	return (
-		<div className='space-y-6'>
-			<Card className='border-emerald-200'>
-				<CardContent className=''>
-					<div className='space-y-6'>
-						<IngredientsListComponent
-							ingredientsList={ingredientsList}
-							onToggleIngredient={updateIngredientsByPurchasedStatus}
-							onClearCompleted={clearCompletedIngredients}
-							hasCompletedItems={hasCompletedItems}
-						/>
-					</div>
-				</CardContent>
-			</Card>
-		</div>
+		<Card className='border-gray-200 shadow-none!'>
+			<CardContent className=''>
+				<IngredientsListComponent
+					ingredientsList={ingredientsList}
+					onToggleIngredient={updateIngredientsByPurchasedStatus}
+					onClearCompleted={clearCompletedIngredients}
+					hasCompletedItems={hasCompletedItems}
+				/>
+			</CardContent>
+		</Card>
 	);
 };
 

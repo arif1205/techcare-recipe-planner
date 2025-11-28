@@ -8,6 +8,7 @@ export interface MealPlan {
 export interface IngredientsList {
 	[key: string]: {
 		purchased: boolean;
+		measures: string[];
 	};
 }
 

@@ -75,7 +75,7 @@ const AddMealModal = ({
 					{isError && <ReceipeLoadError />}
 					{emptyMeals && <ReceipeEmptyList />}
 					{!isLoading && !isError && !emptyMeals && (
-						<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto'>
+						<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 max-h-[60vh] overflow-y-auto'>
 							{data?.meals?.map((recipe: Recipe) => (
 								<RecipeCard
 									key={recipe.idMeal}

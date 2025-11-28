@@ -24,14 +24,14 @@ const IngredientsListComponent = ({
 	if (ingredients.length === 0) return <NoIngredient />;
 
 	return (
-		<div className='space-y-4'>
+		<div className='space-y-2'>
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center justify-start gap-2 px-1'>
 					<h3 className='text-lg font-semibold font-nunito text-gray-800'>
 						Auto-Generated Shopping List
 					</h3>
-					<span className='text-sm font-inter text-gray-800'>
-						{purchasedCount}/{ingredients.length} purchased
+					<span className='text-sm font-inter text-emerald-600'>
+						({purchasedCount}/{ingredients.length} items purchased)
 					</span>
 				</div>
 
@@ -47,6 +47,7 @@ const IngredientsListComponent = ({
 						<IngredientItem
 							key={ingredient}
 							ingredient={ingredient}
+							measures={value.measures}
 							purchased={value.purchased}
 							onToggle={onToggleIngredient}
 							isLast={index === ingredients.length - 1}

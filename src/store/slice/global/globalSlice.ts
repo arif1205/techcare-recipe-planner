@@ -79,10 +79,12 @@ const globalSlice = createSlice({
 			action: PayloadAction<{
 				ingredient: string;
 				purchased: boolean;
+				measures: string[];
 			}>
 		) {
 			state.ingredientsList[action.payload.ingredient] = {
 				purchased: action.payload.purchased,
+				measures: action.payload.measures,
 			};
 		},
 		removeFromIngredientsList(state, action: PayloadAction<string>) {
