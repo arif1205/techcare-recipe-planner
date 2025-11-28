@@ -65,15 +65,15 @@ const DayCard = ({
 										e.stopPropagation();
 										onRemoveMeal();
 									}}
-									className='absolute -top-1 -right-1 size-7 rounded-full bg-red-500/90 hover:bg-red-600 shadow-lg transition-opacity cursor-pointer'>
+									className='absolute -top-1 -right-1 size-7 rounded-full bg-red-500/90 hover:bg-red-600 transition-opacity cursor-pointer'>
 									<X className='size-4' />
 								</Button>
 							</div>
 							<div>
-								<h3 className='font-semibold text-center font-nunito line-clamp-2 text-gray-800'>
+								<h3 className='font-semibold text-lg text-center font-nunito line-clamp-1 text-gray-800'>
 									{meal.name}
 								</h3>
-								<p className='text-sm text-center font-inter mt-1 italic'>
+								<p className='text-xs text-center font-inter italic'>
 									{meal.category}
 								</p>
 							</div>
@@ -90,7 +90,7 @@ const DayCard = ({
 						variant='outline'
 						size='sm'
 						onClick={onAddMeal}
-						className='w-full gap-2 border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 font-inter'>
+						className='w-full gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-700 text-xs'>
 						<Plus className='size-4' />
 						{meal ? "Change Meal" : "Add Meal"}
 					</Button>
