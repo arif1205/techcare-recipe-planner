@@ -107,7 +107,7 @@ The application uses **Redux Toolkit** with **RTK Query** for state management a
 
 #### Why?
 
-- Answered in the next section
+- Answered in the next section [Why Redux Toolkit + RTK Query?](#why-redux-toolkit--rtk-query)
 
 ### Custom Hooks Purpose, Architecture and Implementation
 
@@ -119,11 +119,34 @@ The application uses **Redux Toolkit** with **RTK Query** for state management a
 
 #### Recipe Hooks
 
-- **`useRecipes`**: Fetches recipes with search and category filters
-- **`useRecipeFilters`**: Manages search query debouncing and category selection
-- **`useRecipeDetails`**: Fetches individual recipe details
-- **`useMealPlan`**: Manages meal plan state and modal controls
-- **`useShoppingList`**: Generates shopping list from meal plans with parallel API calls
+- **`useRecipes`**:
+
+  - **Purpose**: Fetches recipes with search and category filters
+  - **Implementation**: Uses RTK Query's hook and return processed data
+  - **Benefits**: Returns processed data with empty meals check
+
+- **`useRecipeFilters`**:
+
+  - **Purpose**: Manages states for search query debouncing and category selection
+  - **Implementation**: Uses useState to manage search query and category selection and debounced search query and memoized category options. Auto-cached categories list via RTK Query.
+  - **Benefits**: Separated business logic from UI logic.
+
+- **`useRecipeDetails`**:
+
+  - **Purpose**: Fetches individual recipe details and returns processed ingredients list
+  - **Implementation**: Uses RTK Query's hook and return processed data. Formats ingredients list with name and measure.
+  - **Benefits**: Separated business logic from UI logic and provides reusability.
+
+- **`useMealPlan`**:
+
+  - **Purpose**: Manages meal plan state and modal controls
+  - **Implementation**: Uses useState to manage meal plan state and modal controls. Uses Redux Toolkit to manage meal plan state. Use global store hooks to get meal plan state and dispatch actions to update meal plan state.
+  - **Benefits**: Separated complex logic from UI logic and provides reusability.
+
+- **`useShoppingList`**:
+  - **Purpose**: Generates shopping list from meal plans with parallel API calls
+  - **Implementation**: Uses RTK Query's hook and return processed data. Generates shopping list from meal plans with parallel API calls. Uses Redux Toolkit to manage shopping list state. Use global store hooks to get shopping list state and dispatch actions to update shopping list state.
+  - **Benefits**: Received processed data with ingredients list and provides reusability.
 
 #### Store Hooks
 
