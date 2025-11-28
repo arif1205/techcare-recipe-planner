@@ -9,7 +9,7 @@ const TabsHeader = ({
 	handleChangeTab: (tab: TabsType) => void;
 }) => {
 	return (
-		<TabsList className='flex h-auto w-full items-center justify-start gap-0 bg-transparent p-0 border-b border-gray-200'>
+		<TabsList className='flex h-auto w-full overflow-scroll items-center justify-start gap-0 bg-transparent p-0 border-b border-gray-200'>
 			{TabsData.map((tab) => {
 				const Icon = tab.icon;
 				return (

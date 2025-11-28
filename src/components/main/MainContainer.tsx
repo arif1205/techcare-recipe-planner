@@ -15,8 +15,10 @@ const MainContainer = () => {
 			{/* Main title  */}
 			<div className='mb-6'>
 				<div className='title-with-icon flex items-end gap-2'>
-					<SoupIcon className='size-10' />
-					<h1 className='text-3xl font-bold uppercase'>Recipe Planner</h1>
+					<SoupIcon className='size-8 sm:size-10' />
+					<h1 className='text-xl sm:text-3xl font-bold uppercase'>
+						Recipe Planner
+					</h1>
 				</div>
 			</div>
 
