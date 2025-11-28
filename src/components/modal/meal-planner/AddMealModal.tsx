@@ -49,7 +49,7 @@ const AddMealModal = ({
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className='max-w-4xl! w-full max-h-[90vh] overflow-y-auto'>
+			<DialogContent className='max-w-full! w-6xl! max-h-[90vh] overflow-y-auto'>
 				<DialogHeader>
 					<DialogTitle className='text-2xl font-nunito'>
 						Select a Recipe
@@ -75,7 +75,7 @@ const AddMealModal = ({
 					{isError && <ReceipeLoadError />}
 					{emptyMeals && <ReceipeEmptyList />}
 					{!isLoading && !isError && !emptyMeals && (
-						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto'>
+						<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto'>
 							{data?.meals?.map((recipe: Recipe) => (
 								<RecipeCard
 									key={recipe.idMeal}

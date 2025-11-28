@@ -26,12 +26,13 @@ const RecipeCard = ({ recipe, onClick }: RecipeCardProps) => {
 				<CardTitle className='font-nunito text-lg line-clamp-1'>
 					{recipe.strMeal}
 				</CardTitle>
-				<p className='text-sm text-gray-600 font-inter mt-1'>
+				<div className='text-sm text-gray-600 font-inter mt-1 flex items-center gap-1'>
 					<Badge variant='outline' className='text-gray-600'>
 						{recipe.strCategory}
-					</Badge>{" "}
-					• <Badge variant='outline'>{recipe.strArea}</Badge>
-				</p>
+					</Badge>
+					<span className='text-xs'>•</span>
+					<Badge variant='outline'>{recipe.strArea}</Badge>
+				</div>
 			</CardHeader>
 			<CardContent className='px-4'>
 				<p className='text-sm text-gray-700 font-inter line-clamp-3 whitespace-pre-line italic'>
