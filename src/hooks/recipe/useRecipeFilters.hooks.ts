@@ -30,10 +30,12 @@ export const useRecipeFilters = () => {
 	} = useApi().queries.categories.getAllCategories();
 
 	const categoryOptions = useMemo<OptionType[]>(() => {
-		return (categoriesData?.categories ?? []).map((cat) => ({
-			id: cat.idCategory,
-			label: cat.strCategory,
-		}));
+		return (categoriesData?.categories ?? [])
+			.filter((cat) => cat.strCategory !== "Pork")
+			.map((cat) => ({
+				id: cat.idCategory,
+				label: cat.strCategory,
+			}));
 	}, [categoriesData?.categories]);
 
 	const selectedCategoryLabel = useMemo(() => {
