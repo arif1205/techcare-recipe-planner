@@ -31,7 +31,7 @@ export const useRecipeFilters = () => {
 
 	const categoryOptions = useMemo<OptionType[]>(() => {
 		return (categoriesData?.categories ?? [])
-			.filter((cat) => cat.strCategory !== "Pork")
+			.filter((cat) => cat.strCategory?.toLowerCase() !== "pork")
 			.map((cat) => ({
 				id: cat.idCategory,
 				label: cat.strCategory,
